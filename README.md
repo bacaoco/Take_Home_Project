@@ -105,13 +105,32 @@ SELECT
     tbl_TTB_Wines.PRODUCT_TYPE
 FROM
     tbl_TTB_Wines;
+*******************************************************************
+*******************************************************************
 
+' VBA Code for Access form: frmDashboard
+*******************************************************************
+Option Compare Database
+
+Private Sub cmboLabelList_Click()
+If cmboLabelList.Value = "Distilled Spirits" Then
+DoCmd.OpenForm ("frmDistilledSpirits")
+ElseIf cmboLabelList.Value = "Malt Beverages" Then
+DoCmd.OpenForm ("frmMaltBeverages")
+ElseIf cmboLabelList.Value = "Wines" Then
+DoCmd.OpenForm ("frmWines")
+End If
+End Sub
+
+Private Sub cmd_QuitApplication_Click()
+DoCmd.Quit
+End Sub
 *******************************************************************
 *******************************************************************
 
 ' SQL and VBA Code for Access form: frmDistilledSpirits
 *******************************************************************
-SQL:
+SQL (Record Source):
 *******************************************************************
 SELECT
     tbl_TTB_DistilledSpirits.BRAND_NAME,
@@ -143,8 +162,8 @@ End Sub
 
 Private Sub cmd_DELETE_Click()
 'If MsgBox("Are you sure you want to delete this record?", vbYesNo + vbCritical, "Delete Record") = vbYes Then    
-DoCmd.RunCommand acCmdSelectRecord
-DoCmd.RunCommand acCmdDeleteRecord
+   DoCmd.RunCommand acCmdSelectRecord
+   DoCmd.RunCommand acCmdDeleteRecord
 'End If
 End Sub
 
@@ -162,7 +181,9 @@ On Error Resume Next ' Will ignore error, if trying to go pass the first record.
 DoCmd.GoToRecord , , acPrevious
 End Sub
 
-Private Sub Form_Current()
+Private Sub Form_Load()
+
+Me.BRAND_NAME.SetFocus
 Me.lbl_ClassType_Example.Caption = "For example,”VODKA 80-89 PROOF / VODKA”"
 Me.lbl_AlcoholContectExample.Caption = "For example, ALCOHOL 40% BY VOLUME" & " or 40% Alc. by Vol."
 Me.lbl_WarningStatementNotice.Caption = "***The health warning statement is the following statement, required to appear on distilled spirit labels" & _
@@ -171,17 +192,162 @@ Me.lbl_Name_Address_Example.Caption = "For example,”Bottled By: ABC Distillery
 Me.lbl_AutoGenerateNotice.Caption = "If Blank, click on the box to auto generate the Health Warning Statement."
 Me.lbl_DistilledSpiritsLink.Caption = "https://www.ttb.gov/regulated-commodities/beverage-alcohol/distilled-spirits/labeling"
 Me.lbl_DistilledSpiritsLink.HyperlinkAddress = "https://www.ttb.gov/regulated-commodities/beverage-alcohol/distilled-spirits/labeling"
+
 End Sub
 
 Private Sub HEALTH_WARNING_STATEMENT_Click()
 ' As long as the Ampere (@) sign is not used in the Format field under the Form properties. Text characters will not be restricted.
-' Configure Text Format under the Data Tab and set it to Rich Text for the bold function to work for the "GOVERMENT WARNING:" statement.
+' Configure Text Format under the Data Tab and set it to Rich Text for the bold function to work for the "GOVERMENT WARNING:" statement which is enclosed with html tags.
 HEALTH_WARNING_STATEMENT.Text = "<b>GOVERNMENT WARNING:</b> (1) According to the Surgeon General, women should not drink alcoholic beverages during pregnancy because of the risk of birth defects. 2) Consumption of alcoholic beverages impairs your ability to drive a car or operate machinery, and may cause health problems."
 End Sub
+*******************************************************************
+*******************************************************************
 
+' SQL and VBA Code for Access form: frmMaltBeverages
+*******************************************************************
+SQL (Record Source):
+*******************************************************************
+SELECT
+    tbl_TTB_MaltBeverages.BRAND_NAME,
+    tbl_TTB_MaltBeverages.ALCOHOL_CONTENT,
+    tbl_TTB_MaltBeverages.CLASS_OR_TYPE_DESIGNATION,
+    tbl_TTB_MaltBeverages.IMPORT_COUNTRY,
+    tbl_TTB_MaltBeverages.NET_CONTENTS,
+    tbl_TTB_MaltBeverages.HEALTH_WARNING_STATEMENT,
+    tbl_TTB_MaltBeverages.NAME_AND_ADDRESS,
+    tbl_TTB_MaltBeverages.COLOR_INGREDIENT_DISCLOSURES,
+    tbl_TTB_MaltBeverages.SULFITE_AND_ASPARTAME_DECLARATION,
+    tbl_TTB_MaltBeverages.NAME_AND_ADDRESS_IMPORTS
+FROM
+    tbl_TTB_MaltBeverages;
 ******************************************************************
+VBA CODE:
+******************************************************************
+Option Compare Database
 
+Private Sub cmd_Clear_Click()
+DoCmd.GoToRecord , "", acNewRec
+End Sub
 
+Private Sub cmd_Close_Click()
+' Closes form and returns back to main Dasboard
+DoCmd.Close
+DoCmd.OpenForm ("frmDashboard")
+End Sub
 
+Private Sub cmd_DELETE_Click()
+'If MsgBox("Are you sure you want to delete this record?", vbYesNo + vbCritical, "Delete Record") = vbYes Then
+   DoCmd.RunCommand acCmdSelectRecord
+   DoCmd.RunCommand acCmdDeleteRecord
+'End If
+End Sub
 
+Private Sub cmd_Exit_Click()
+DoCmd.Quit
+End Sub
 
+Private Sub cmd_Next_Click()
+On Error Resume Next ' Will ignore error, if trying to go pass the last record.
+DoCmd.GoToRecord , , acNext
+End Sub
+
+Private Sub cmd_Previous_Click()
+On Error Resume Next ' Will ignore error, if trying to go pass the first record.
+DoCmd.GoToRecord , , acPrevious   
+End Sub
+
+Private Sub Form_Load()
+Me.BRAND_NAME.SetFocus
+Me.lbl_AlcoholContectExample.Caption = "For example, ALCOHOL 40% BY VOLUME" & " or 40% Alc. by Vol."
+Me.lbl_AutoGenerateNotice.Caption = "If Blank, click on the box to auto generate the Health Warning Statement."
+Me.lbl_WarningStatementNotice.Caption = "***Under the Alcoholic Beverage Labeling Act (ABLA) of 1988 and TTB regulations at 27 CFR part 16, the following health warning statement" & _
+                                        " must appear on all alcohol beverages, including malt beverages, bottled or imported for sale or distribution in the United States and" & _
+                                        " containing not less than 0.5 percent alcohol by volume***"
+Me.lbl_MaltBeveragesLink.Caption = "https://www.ttb.gov/regulated-commodities/beverage-alcohol/beer/labeling"
+Me.lbl_MaltBeveragesLink.HyperlinkAddress = "https://www.ttb.gov/regulated-commodities/beverage-alcohol/beer/labeling"
+End Sub
+
+Private Sub HEALTH_WARNING_STATEMENT_Click()
+' As long as the Ampere (@) sign is not used in the Format field under the Form properties. Text characters will not be restricted.
+' Configure Text Format under the Data Tab and set it to Rich Text for the bold function to work for the "GOVERMENT WARNING:" statement which is enclosed with html tags.
+HEALTH_WARNING_STATEMENT.Text = "<b>GOVERNMENT WARNING:</b> (1) According to the Surgeon General, women should not drink alcoholic beverages during pregnancy because of the risk of birth defects. 2) Consumption of alcoholic beverages impairs your ability to drive a car or operate machinery, and may cause health problems."
+End Sub
+*******************************************************************
+*******************************************************************
+
+' SQL and VBA Code for Access form: frmWines
+*******************************************************************
+SQL (Record Source):
+*******************************************************************
+SELECT
+    tbl_TTB_Wines.BRAND_NAME,
+    tbl_TTB_Wines.ALCOHOL_CONTENT,
+    tbl_TTB_Wines.CLASS_OR_TYPE_DESIGNATION,
+    tbl_TTB_Wines.IMPORT_COUNTRY,
+    tbl_TTB_Wines.NET_CONTENTS,
+    tbl_TTB_Wines.HEALTH_WARNING_STATEMENT,
+    tbl_TTB_Wines.NAME_AND_ADDRESS,
+    tbl_TTB_Wines.COLOR_INGREDIENT_DISCLOSURE,
+    tbl_TTB_Wines.SULFITE_DECLARATION,
+    tbl_TTB_Wines.APPELLATION_OF_ORIGIN,
+    tbl_TTB_Wines.PERCENTAGE_OF_FOREIGN_WINE
+FROM
+    tbl_TTB_Wines;
+******************************************************************
+VBA CODE:
+******************************************************************
+Option Compare Database
+
+Private Sub cmd_Clear_Click()
+DoCmd.GoToRecord , "", acNewRec
+End Sub
+
+Private Sub cmd_Close_Click()
+' Closes form and returns back to main Dasboard
+DoCmd.Close
+DoCmd.OpenForm ("frmDashboard")
+End Sub
+
+Private Sub cmd_DELETE_Click()
+If MsgBox("Are you sure you want to delete this record?", vbYesNo + vbCritical, "Delete Record") = vbYes Then
+   DoCmd.RunCommand acCmdSelectRecord
+   DoCmd.RunCommand acCmdDeleteRecord
+End If
+End Sub
+
+Private Sub cmd_Exit_Click()
+DoCmd.Quit
+End Sub
+
+Private Sub cmd_Next_Click()
+On Error Resume Next ' Will ignore error, if trying to go pass the last record.
+DoCmd.GoToRecord , , acNext
+End Sub
+
+Private Sub cmd_Previous_Click()
+On Error Resume Next ' Will ignore error, if trying to go pass the first record.
+DoCmd.GoToRecord , , acPrevious   
+End Sub
+
+Private Sub Form_Load()
+Me.APPELLATION_OF_ORIGIN.SetFocus
+Me.lbl_ClassType_Example.Caption = "For example" & ",""TABLE WHITE WINE / WHITE WINE"""
+Me.lbl_AlcoholContectExample.Caption = "For example" & ",""ALCOHOL ___% BY VOLUME""" & " or ""____% Alc. by Vol."""
+Me.lbl_WarningStatementNotice.Caption = "***The health warning statement is the following statement,required to appear on wine labels by the Alcoholic Beverage" & _
+                                        " Labeling Act (ABLA) of 1988 and must appear on all alcohol beverages for sale or distribution in the United States" & _
+                                        " containing not less than 0.5 percent alcohol by volume. This requirement applies regardless of whether the bottled wine" & _
+                                        " will be sold in interstate or intrastate commerce,and also applies to beverages that are produced, imported, bottled," & _
+                                        " or labeled for sale, distribution, or shipment to members or units of the Armed Forces of the United States, including " & _
+                                        " those located outside the United States.***"
+Me.lbl_NameAddressExample.Caption = "For example,”Bottled By: ABC Distillery Frederick, MD” is bottlers name and address statement."
+Me.lbl_AppellationOf_Origin.Caption = "Appellation of Origin (Mandatory in certain circumstances):"
+Me.lbl_ClassTypeDesignation.Caption = "Class or Type Designation (the kind of wine based on the standards of identity):"
+Me.lbl_WineReferenceLink.Caption = "https://www.ttb.gov/regulated-commodities/beverage-alcohol/wine/labeling"
+Me.lbl_WineReferenceLink.HyperlinkAddress = "https://www.ttb.gov/regulated-commodities/beverage-alcohol/wine/labeling"
+End Sub
+
+Private Sub HEALTH_WARNING_STATEMENT_Click()
+' As long as the Ampere (@) sign is not used in the Format field under the Form properties. Text characters will not be restricted.
+' Configure Text Format under the Data Tab and set it to Rich Text for the bold function to work for the "GOVERMENT WARNING:" statement which is encloed with html tags.
+HEALTH_WARNING_STATEMENT.Text = "<b>GOVERNMENT WARNING:</b> (1) According to the Surgeon General, women should not drink alcoholic beverages during pregnancy because of the risk of birth defects. 2) Consumption of alcoholic beverages impairs your ability to drive a car or operate machinery, and may cause health problems."
+End Sub
