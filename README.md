@@ -7,8 +7,8 @@ Microsoft Access VBA SQL Queries
 ' Table - tbl_Cola in Access was a dataset retrieved from Tax and Trade Bureau, public open source website at TTB.gov/data
 ' Created By: Ryan Bacaoco
 ' Date: 7/12/2026
-***********************************
-Query Name: qryCola_DistilledSpirits
+' Query Name: qryCola_DistilledSpirits
+*************************************************************
 SELECT
     *
 FROM
@@ -16,8 +16,8 @@ FROM
 WHERE
     PRODUCT_TYPE = "Distilled Spirits";
 *************************************************************
+' Query Name: qryCola_MaltBeverages
 *************************************************************
-Query Name: qryCola_MaltBeverages
 SELECT
     *
 FROM
@@ -25,8 +25,8 @@ FROM
 WHERE
     PRODUCT_TYPE = "malt beverage";
 *************************************************************
+' Query Name: qryCola_Wines 
 *************************************************************
-Query Name: qryCola_Wines 
 SELECT
     *
 FROM
@@ -34,8 +34,8 @@ FROM
 WHERE
     PRODUCT_TYPE = "WINE";
 ************************************************************
+' Query Name: qry_TTB_CombinedBeverages
 ************************************************************
-Query Name: qry_TTB_CombinedBeverages
 SELECT
     tbl_TTB_DistilledSpirits.BRAND_NAME,
     tbl_TTB_DistilledSpirits.ALCOHOL_CONTENT,
