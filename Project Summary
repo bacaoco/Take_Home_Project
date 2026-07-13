@@ -1,0 +1,14 @@
+The reason why I chose Microsoft Access as the my application of choice was because my work experience and years spent working as a Goverment Contractor for the United States Navy
+in San Diego, California. Majority of all the applications they used were all developed by Microsoft and was informed the Department of Defense (DoD) invested a lot with using 
+Microsoft products for all the IT needs. Since Microsoft Access was a component of the Microsoft Office package, using this for my project was the most logical and with the User 
+stories I have read appeared to be the most of what this application could provide. 
+My approach to first starting off with the project was to first understand what kind of data I will be working with and decided to go to the website provided TTB.gov on the Take Home assignment.
+After going there, I found a page on the website which provided the data set I needed to start creating my project. First, I viewed the required information needed on all the beverage labels - Distilled Spirits, 
+Malt Beverages, and Wines. Then used Microsoft Excel to assist with cleaning the data by removing duplicate informmation, data manipulation such as contcatenation to combine multiple fields together or using bult in-functions
+to Capitalize text values in a field column. Once, I was able to get the data cleaned, the next process was uploading into Microsoft Access. There I was able to setup my repository and use SQL to setup my queries and create 
+other tables to be used to retrieve and store information related to the different alcoholic beverages. With repetitive processes with Access I was able to use built-in MACRO functions for button objects and use programming 
+language, Visual Basic for Applications (VBA) for more complex processes and error handling. 
+After, completing the project, I ran an operational test with all the application features such as web links were going to the correct websites, button features were opening the correct forms, and data being pulled from the 
+database accurately counted the correct number files stored for each of the different beverages.
+If one had multiple information which needed to be stored in Microsoft Access, there are multiple ways this operation can be performed then uploaded to program to be either appended to original database table or using SQL to have 
+have the multiple records updated to the database table. 
